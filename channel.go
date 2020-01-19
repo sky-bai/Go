@@ -16,6 +16,9 @@ import (
 
 
 func main()  {
+
+	var ch = make(chan string)
+
 	go func() {
 		defer fmt.Println("子协程调用完毕")
 
@@ -23,7 +26,11 @@ func main()  {
 			fmt.Println(i)
 			time.Sleep(time.Second)
 		}
+
+		ch<-"我是子协程，工作结束"
 	}()
+	//没有数据就会阻塞
+	<-ch
 }
 
 
